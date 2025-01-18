@@ -539,8 +539,8 @@ def generalize_train_pool_u_conresnet(args):
     # Defining Loss Function
     criterion_dsc = DSC_loss()
     criterion_bce = BCELoss()
-    bgrTh = nn.Threshold(0, 0)
-    tarTh = nn.Threshold(-0.000001, 1)
+    bgrTh = nn.Threshold(0, 1)
+    tarTh = nn.Threshold(0.999999999, 0)
     criterion_mse = nn.MSELoss()
     model.train()
 
@@ -675,7 +675,7 @@ def generalize_train_pool_u_conresnet(args):
                         loss += loss_cos
                         loss_mse_list.append(loss_cos.item())
 
-                    out_dis = -bgrTh(-out_dis)
+                    out_dis = bgrTh(out_dis)
                     out_dis = tarTh(out_dis)
                     loss_dis_dsc = criterion_dsc(out_dis, masks)
                     loss_dsc_dist_list.append(loss_dis_dsc.item())
