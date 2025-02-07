@@ -539,7 +539,7 @@ def generalize_train_pool_u_conresnet(args):
     criterion_dsc = DSC_loss()
     criterion_bce = BCELoss()
     bgrTh = nn.Threshold(0, 1)
-    tarTh = nn.Threshold(0.999999999, 0)
+    tarTh = nn.Threshold(0.999999, 0)
     criterion_mse = nn.MSELoss()
     model.train()
 
